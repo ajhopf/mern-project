@@ -11,20 +11,29 @@ dotenv.config();
 
 const app = express();
 
-app.use('/posts', postRoutes);
-
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
-app.use(cors());
 
 //mongodb
 const CONNECTION_URL = process.env.CONNECTION_URL;
 
 const PORT = process.env.PORT || 5000;
 
+// const connect = async () => {
+//   try {
+//     await mongoose.connect(CONNECTION_URL);
+//     console.log('Banco conectado (:');
+//   } catch (error) {
+//     console.error('Erro: ', error.message);
+//   }
+// };
 mongoose
   .connect(CONNECTION_URL)
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
   .catch(error => console.log(error.message));
+
+app.use(cors());
+app.use(express.json());
+app.use('/posts', postRoutes);
