@@ -2,10 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv-safe';
 
 import postRoutes from './routes/posts.js';
-
-import dotenv from 'dotenv-safe';
 
 dotenv.config();
 
@@ -19,14 +18,6 @@ const CONNECTION_URL = process.env.CONNECTION_URL;
 
 const PORT = process.env.PORT || 5000;
 
-// const connect = async () => {
-//   try {
-//     await mongoose.connect(CONNECTION_URL);
-//     console.log('Banco conectado (:');
-//   } catch (error) {
-//     console.error('Erro: ', error.message);
-//   }
-// };
 mongoose
   .connect(CONNECTION_URL)
   .then(() =>
